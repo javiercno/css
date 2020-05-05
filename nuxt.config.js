@@ -1,5 +1,19 @@
+import axios from 'axios';
 
 export default {
+  generate: {
+    routes () {
+      return axios.get('https://www.lasmesas.es/wp-json/wp/v2/posts')
+        .then((res) => {
+          return res.data.map((post) => {
+            return {
+              route: '/posts/' + post.slug,
+              payload: post
+            }
+          })
+        })
+    }
+  },
   mode: 'universal',
   /*
   ** Headers of the page
